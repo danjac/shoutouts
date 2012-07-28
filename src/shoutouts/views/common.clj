@@ -1,8 +1,12 @@
 (ns shoutouts.views.common
   (:use [noir.core :only [defpartial]]
-        [hiccup.page-helpers :only [include-css include-js link-to html5]]))
+        [hiccup.page-helpers :only [include-css 
+                                    include-js 
+                                    link-to 
+                                    html5]]))
 
-(defpartial navbar []
+(defpartial navbar 
+    []
     [:div.navbar.navbar-fixed-top
                  [:div.navbar-inner
                   [:div.container
@@ -17,7 +21,8 @@
                      [:li (link-to "#" "About")]
                      [:li (link-to "#" "Contact")]]]]]])
 
-(defpartial bootstrap-js []
+(defpartial bootstrap-js 
+    []
     (include-js "/js/jquery.js")
     (include-js "/js/bootstrap-transition.js")
     (include-js "/js/bootstrap-alert.js")
@@ -34,9 +39,10 @@
 (defpartial layout [& content]
             (html5
               [:head
-               [:title "shoutouts"]
+               [:title "Shoutouts"]
 
                (include-css "/css/bootstrap.css")
+
                [:style "
                   body {
                   padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
