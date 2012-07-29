@@ -8316,8 +8316,28 @@ jayq.core.xhr = function(a, b, c) {
 };
 var shoutouts = {main:{}};
 shoutouts.main.week_selector = jayq.core.$.call(null, "\ufdd0'#week-selector");
+shoutouts.main.priorities = jayq.core.$.call(null, "\ufdd0'#priorities");
+shoutouts.main.priorities_tab = jayq.core.$.call(null, "\ufdd0'#priorities-tab");
+shoutouts.main.priorities_tab_link = jayq.core.$.call(null, "\ufdd0'#priorities-tab>a");
+shoutouts.main.sales_metrics = jayq.core.$.call(null, "\ufdd0'#sales-metrics");
+shoutouts.main.sales_metrics_tab = jayq.core.$.call(null, "\ufdd0'#sales-metrics-tab");
+shoutouts.main.sales_metrics_tab_link = jayq.core.$.call(null, "\ufdd0'#sales-metric-tab>a");
 shoutouts.main.select_week = function() {
   var a = jayq.core.val.call(null, shoutouts.main.week_selector);
   return window.location.href = cljs.core.str.call(null, "/?week=", a)
 };
+shoutouts.main.select_sales_metrics = function() {
+  shoutouts.main.priorities.hide();
+  shoutouts.main.sales_metrics.show();
+  shoutouts.main.priorities_tab.removeClass("active");
+  return shoutouts.main.sales_metrics_tab.addClass("active")
+};
+shoutouts.main.select_priorities = function() {
+  shoutouts.main.priorities.show();
+  shoutouts.main.sales_metrics.hide();
+  shoutouts.main.priorities_tab.addClass("active");
+  return shoutouts.main.sales_metrics_tab.removeClass("active")
+};
 jayq.core.bind.call(null, shoutouts.main.week_selector, "\ufdd0'change", shoutouts.main.select_week);
+jayq.core.bind.call(null, shoutouts.main.priorities_tab_link, "\ufdd0'click", shoutouts.main.select_priorities);
+jayq.core.bind.call(null, shoutouts.main.sales_metrics_tab_link, "\ufdd0'click", shoutouts.main.select_sales_metrics);

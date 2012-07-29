@@ -38,56 +38,61 @@
 
            [:div.alert.alert-warning "You have 2 hours to complete your priorities!"]
 
-           [:ul.nav.nav-tabs
-            [:li.active (link-to "#" "Dan Jacob")]
-            [:li (link-to "#" "Sales Metrics")]
-            [:li (link-to "#" "Community Metrics")]
-            [:li (link-to "#" "CEO Announcements")]]
+           [:ul.nav.nav-tabs {:id "tab-navbar"}
+            [:li.active {:id "priorities-tab"} (link-to "#" "Dan Jacob")]
+            [:li#sales-metrics-tab (link-to "#" "Sales Metrics")]
+            [:li#community-metrics-tab (link-to "#" "Community Metrics")]
+            [:li#ceo-announcements-tab (link-to "#" "CEO Announcements")]]
 
-           (form/form-to {:class "form-vertical"} [:post "/"]
+           [:div.tab-content {:id "sales-metrics"} {:style "display:none;"} "Sales metrics go here"]
+           [:div.tab-content {:id "community-metrics"} {:style "display:none;"} "Community metrics go here"]
+           [:div.tab-content {:id "ceo-announcements"} {:style "display:none;"} "CEO announcements go here"]
 
-            [:fieldset
+           [:div.tab-content {:id "priorities"}
+             (form/form-to {:class "form-vertical"} [:post "/"]
 
-             [:legend "Shout-outs and 1%'s"]
+              [:fieldset
 
-             [:div.control-group (form/label :shoutout "My shout-out for this week goes to")
-                                 (form/drop-down :shoutout users) " for " (form/text-field :shoutout-reason)]
+               [:legend "Shout-outs and 1%'s"]
 
-             [:div.control-group (form/label :one-pc "My 1% for this week goes to")
-                                 (form/drop-down :one-pc users) " for " (form/text-field :one-pc-reason)]]
+               [:div.control-group (form/label :shoutout "My shout-out for this week goes to")
+                                   (form/drop-down :shoutout users) " for " (form/text-field :shoutout-reason)]
 
-            [:fieldset 
-            
-             [:legend "Lessons learned"]
+               [:div.control-group (form/label :one-pc "My 1% for this week goes to")
+                                   (form/drop-down :one-pc users) " for " (form/text-field :one-pc-reason)]]
 
-             [:div.control-group (form/label :lessons-learned "Lessons learned")
-                                 (form/text-field :lessons-learned)]
+              [:fieldset 
+              
+               [:legend "Lessons learned"]
 
-             [:div.control-group (form/label :best-mistake "Best mistake")
-                                 (form/text-field :best-mistake)]
+               [:div.control-group (form/label :lessons-learned "Lessons learned")
+                                   (form/text-field :lessons-learned)]
 
-             [:div.control-group (form/label :best-quote "Best quote")
-                                 (form/text-field :best-quote)]]
+               [:div.control-group (form/label :best-mistake "Best mistake")
+                                   (form/text-field :best-mistake)]
 
-             [:fieldset
+               [:div.control-group (form/label :best-quote "Best quote")
+                                   (form/text-field :best-quote)]]
 
-              [:legend "Tasks &amp; accomplishments"]
+               [:fieldset
 
-              [:div.control-group (form/label :accomplishments "Top accomplishments")
-                                  [:ol
-                                    (map (fn [n] (form/with-group :accomplishments
-                                                    (html [:li (form/text-field n)])))
-                                    (range 3))]]
+                [:legend "Tasks &amp; accomplishments"]
 
-              [:div.control-group (form/label :tasks "Tasks for this week")
-                                  [:ol
-                                    (map (fn [n] (form/with-group :tasks
-                                                    (html [:li (form/text-field n)])))
-                                    (range 3))]]]
+                [:div.control-group (form/label :accomplishments "Top accomplishments")
+                                    [:ol
+                                      (map (fn [n] (form/with-group :accomplishments
+                                                      (html [:li (form/text-field n)])))
+                                      (range 3))]]
+
+                [:div.control-group (form/label :tasks "Tasks for this week")
+                                    [:ol
+                                      (map (fn [n] (form/with-group :tasks
+                                                      (html [:li (form/text-field n)])))
+                                      (range 3))]]]
 
 
- 
-             [:div.form-actions (form/submit-button {:class "btn btn-primary"} "I'm done")])))
+   
+               [:div.form-actions (form/submit-button {:class "btn btn-primary"} "I'm done")])]))
 
 (defpage "/login" []
          (common/layout
