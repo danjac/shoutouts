@@ -3,4 +3,5 @@ pom.xml
 *.swp
 /lib/
 /classes/
+/.clojurescript-output/
 .lein-deps-sum
