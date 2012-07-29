@@ -18,6 +18,7 @@
                    [:div.nav-collapse
                     [:ul.nav
                      [:li.active (link-to "#" "Home")]
+                     [:li (link-to "#" "Settings")]
                      [:li (link-to "#" "About")]
                      [:li (link-to "#" "Contact")]]]]]])
 
