@@ -11906,9 +11906,18 @@ shoutouts.main.ceo_announcements = jayq.core.$.call(null, "\ufdd0'#ceo-announcem
 shoutouts.main.ceo_announcements_tab = jayq.core.$.call(null, "\ufdd0'#ceo-announcements-tab");
 shoutouts.main.ceo_announcements_tab_link = jayq.core.$.call(null, "\ufdd0'#ceo-announcements-tab>a");
 shoutouts.main.priorities_form = jayq.core.$.call(null, "\ufdd0'#priorities-form");
+shoutouts.main.shoutout = jayq.core.$.call(null, "\ufdd0'#shoutout");
+shoutouts.main.shoutout_reason = jayq.core.$.call(null, "\ufdd0'#shoutout-reason");
+shoutouts.main.tasks = jayq.core.$.call(null, "\ufdd0'.task-field");
+shoutouts.main.handle_submit_callback = function(a) {
+  alert.call(null, "callback");
+  return console.log(a)
+};
 shoutouts.main.submit_priorities_form = function() {
-  fetch.remotes.remote_callback.call(null, "submit-priorities", cljs.core.Vector.fromArray([]), function(a) {
-    return alert.call(null, a)
+  var a = cljs.core.ObjMap.fromObject(["\ufdd0'shoutout", "\ufdd0'shoutout-reason", "\ufdd0'tasks"], {"\ufdd0'shoutout":shoutouts.main.shoutout.val(), "\ufdd0'shoutout-reason":shoutouts.main.shoutout_reason.val(), "\ufdd0'tasks":cljs.core.Vector.fromArray(["foo", "bar", "czah"])});
+  console.log(a);
+  fetch.remotes.remote_callback.call(null, "submit-priorities", cljs.core.Vector.fromArray([a]), function(a) {
+    return console.log(a)
   });
   return!1
 };

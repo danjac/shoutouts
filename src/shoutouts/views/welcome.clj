@@ -15,7 +15,7 @@
 (def icon-plus [:i.icon-plus])
 (def icon-minus [:i.icon-minus])
 
-(def users [["Select a colleague" nil] ["Dan Jacob" 1] ["John Smith" 2]])
+(def users [["Select a colleague" ""] ["Dan Jacob" 1] ["John Smith" 2]])
 
 (defn is-logged-in? [] (= (session/get :user-id "1234")))
 
@@ -30,7 +30,14 @@
 
 (pre-route "/*" {} (when-not (or (allowed-url?) (is-logged-in?)) (resp/redirect "/login")))
 
-(defremote submit-priorities [] "OK")
+
+(defpage [:post "/submit/"] {:as priorities}
+          (println priorities)
+          "OK")
+          
+(defremote submit-priorities [priorities]
+           (println priorities)
+           "done")
 
 (defpage "/" {:keys [week]}
 
@@ -52,7 +59,7 @@
            [:div.tab-content {:id "ceo-announcements" :style "display:none;"} "CEO announcements go here"]
 
            [:div.tab-content {:id "priorities"}
-             (form/form-to {:class "form-vertical" :id "priorities-form"} [:post "/"]
+             (form/form-to {:class "form-vertical" :id "priorities-form"} [:post "/submit/"]
 
               [:fieldset
 
@@ -90,7 +97,7 @@
                 [:div.control-group (form/label :tasks "Tasks for this week")
                                     [:ol
                                       (map (fn [n] (form/with-group :tasks
-                                                      (html [:li (form/text-field n)])))
+                                                      (html [:li (form/text-field {:class "task-field"} n)])))
                                       (range 3))]]]
 
 

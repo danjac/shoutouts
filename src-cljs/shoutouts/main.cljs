@@ -1,6 +1,7 @@
 (ns shoutouts.main
     (:require [jayq.core :as jq]
               [fetch.remotes :as remotes])
+    (:use [fetch.core :only [xhr]])
     (:require-macros [fetch.macros :as fm]))
 
 
@@ -30,8 +31,22 @@
 
 (def priorities-form (jq/$ :#priorities-form))
 
+(def shoutout (jq/$ :#shoutout))
+(def shoutout-reason (jq/$ :#shoutout-reason))
+(def tasks (jq/$ :.task-field))
+
+
+(defn handle-submit-callback [req]
+    (js/alert "callback")
+    (.log js/console req))
+
 (defn submit-priorities-form [] 
-    (fm/remote (submit-priorities) [result] (js/alert result))
+    (let [params {:shoutout (.val shoutout)
+                  :shoutout-reason (.val shoutout-reason)
+                  :tasks ["foo" "bar" "czah"]}]
+                  (.log js/console params)
+         (fm/letrem [result (submit-priorities params)] (.log js/console result)))
+          
 false)
 
 (defn select-week []
