@@ -1,7 +1,10 @@
 (ns shoutouts.server
-  (:require [noir.server :as server]))
+  (:require [noir.server :as server])
+  (:use [noir.fetch.remotes]))
 
 (server/load-views "src/shoutouts/views/")
+(server/add-middleware wrap-remotes)
+
 
 (defn -main [& m]
   (let [mode (keyword (or (first m) :dev))

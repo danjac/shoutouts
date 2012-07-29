@@ -5,6 +5,7 @@
             [noir.session :as session]
             [hiccup.form-helpers :as form])
   (:use [noir.core :only [defpage defpartial pre-route render]]
+  	    [noir.fetch.remotes :only [defremote]]
         [hiccup.core :only [html]]
         [hiccup.page-helpers :only [link-to]]))
 
@@ -29,6 +30,8 @@
 
 (pre-route "/*" {} (when-not (or (allowed-url?) (is-logged-in?)) (resp/redirect "/login")))
 
+(defremote submit-priorities [] "OK")
+
 (defpage "/" {:keys [week]}
 
          (common/layout
@@ -44,12 +47,12 @@
             [:li#community-metrics-tab (link-to "#" "Community Metrics")]
             [:li#ceo-announcements-tab (link-to "#" "CEO Announcements")]]
 
-           [:div.tab-content {:id "sales-metrics"} {:style "display:none;"} "Sales metrics go here"]
-           [:div.tab-content {:id "community-metrics"} {:style "display:none;"} "Community metrics go here"]
-           [:div.tab-content {:id "ceo-announcements"} {:style "display:none;"} "CEO announcements go here"]
+           [:div.tab-content {:id "sales-metrics" :style "display:none;"} "Sales metrics go here"]
+           [:div.tab-content {:id "community-metrics" :style "display:none;"} "Community metrics go here"]
+           [:div.tab-content {:id "ceo-announcements" :style "display:none;"} "CEO announcements go here"]
 
            [:div.tab-content {:id "priorities"}
-             (form/form-to {:class "form-vertical"} [:post "/"]
+             (form/form-to {:class "form-vertical" :id "priorities-form"} [:post "/"]
 
               [:fieldset
 
