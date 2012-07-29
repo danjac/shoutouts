@@ -24,15 +24,17 @@
       (some matches-url allowed-urls))))
 
 
-(def weeks [["31 July 2012" "30-2012"]])
+(def weeks [["30 July 2012" "25-2012"]
+            ["23 July 2012" "24-2012"]])
 
 (pre-route "/*" {} (when-not (or (allowed-url?) (is-logged-in?)) (resp/redirect "/login")))
 
-(defpage "/" []
+(defpage "/" {:keys [week]}
+
          (common/layout
 
            [:h2 "Priorities for " (form/drop-down :user-selector users 1)
-                " in week starting from " (form/drop-down :week-selector weeks)]
+                " in week starting from " (form/drop-down :week-selector weeks (or week "25-2012"))]
 
            [:div.alert.alert-warning "You have 2 hours to complete your priorities!"]
 

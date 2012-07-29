@@ -22,7 +22,7 @@
                      [:li (link-to "#" "About")]
                      [:li (link-to "#" "Contact")]]]]]])
 
-(defpartial bootstrap-js 
+(defpartial js-includes
     []
     (include-js "/js/jquery.js")
     (include-js "/js/bootstrap-transition.js")
@@ -35,7 +35,8 @@
     (include-js "/js/bootstrap-popover.js")
     (include-js "/js/bootstrap-button.js")
     (include-js "/js/bootstrap-collapse.js")
-    (include-js "/js/bootstrap-typeahead.js"))
+    (include-js "/js/bootstrap-typeahead.js")
+    (include-js "/js/cljs.js"))
 
 (defpartial layout [& content]
             (html5
@@ -58,6 +59,6 @@
 
                [:div.container content]
 
-               (bootstrap-js)]))
+               (js-includes)]))
 
 
