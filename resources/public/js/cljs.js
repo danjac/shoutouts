@@ -8315,4 +8315,9 @@ jayq.core.xhr = function(a, b, c) {
   return jQuery.ajax(a, b)
 };
 var shoutouts = {main:{}};
-alert.call(null, "testing");
+shoutouts.main.week_selector = jayq.core.$.call(null, "\ufdd0'#week-selector");
+shoutouts.main.select_week = function() {
+  var a = jayq.core.val.call(null, shoutouts.main.week_selector);
+  return window.location.href = cljs.core.str.call(null, "/?week=", a)
+};
+jayq.core.bind.call(null, shoutouts.main.week_selector, "\ufdd0'change", shoutouts.main.select_week);
